@@ -1,0 +1,52 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Intern Project</title>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    <form id="reg-form">
+        <input type="text" id="name" placeholder="name"/>
+        <input type="text" id="email" placeholder="email"/>
+        <input type="text" id="password" placeholder="Password"/>
+        <input type="submit" value="Submit Form"/>
+    </form>
+
+    <script>
+        const form = document.getElementById('reg-form')
+        form.addEventListener('submit', registerUser)
+
+        async function registerUser(event) {
+            event.preventDefault()
+            const name = document.getElementById('name').value
+            const email= document.getElementById('email').value
+            const password = document.getElementById('password').value
+
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            }).then((res) => res.json())
+
+            if (response.status === 'ok')
+            {
+                alert('Now you can login')
+                console.log('Now you can login')
+            } else {
+                alert('error')
+            }
+            console.log(response);
+        }
+    </script>
+    <br/>
+    <a href="http://localhost:4000/login.html">Login</a>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!Doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="login">
+        <input type="text" id="email" placeholder="email" />
+        <input type="text" id="password" placeholder="Password" />
+        <input type="submit" value="Submit Form" />
+    </form>
+
+    <script>
+        const form = document.getElementById('login')
+        form.addEventListener('submit', registerUser)
+
+        async function registerUser(event) {
+            event.preventDefault()
+            const email= document.getElementById('email').value
+            const Password = document.getElementById('password').value
+
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    Password
+                })
+            }).then((res) => res.json())
+
+            if (response.status === 'ok') {
+
+                console.log('Got the token: ', response.data)
+                alert('Success')
+            } else {
+                alert(response.error)
+            }
+
+            console.log(response);
+        }
+
+    </script>
+</body>
+</html>
